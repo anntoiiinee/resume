@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #09090b; }
+  ::selection { background: #3b82f6; color: #fff; }
+  @keyframes blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+</style>
+</head>
+<body>
+<div lang="en" style="--accent:#3b82f6;--accent-glow:#3b82f6;--grid-opacity:0.5;--bg:#09090b;--fg:#fafafa;--muted:#a1a1aa;--faint:#71717a;--border:rgba(255,255,255,0.08);--border-strong:rgba(255,255,255,0.16);--card:rgba(255,255,255,0.018);position:relative;min-height:100vh;background:#09090b;color:#fafafa;font-family:'Geist',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;">
+
+  <div style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:var(--grid-opacity,0.5);background-image:radial-gradient(rgba(255,255,255,0.05) 1px,transparent 1px);background-size:32px 32px;"></div>
+  <div style="position:fixed;top:-15%;left:50%;transform:translateX(-50%);width:900px;height:500px;z-index:0;pointer-events:none;background:radial-gradient(ellipse at center,var(--accent-glow) 0%,transparent 70%);opacity:0.10;filter:blur(20px);"></div>
+
+  <!-- NAV -->
+  <nav style="position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:rgba(9,9,11,0.72);border-bottom:1px solid var(--border);">
+    <div style="max-width:1080px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="#top" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg);">
+        <img src="https://avatars.githubusercontent.com/u/118256978?v=4" alt="Antoine Lecarpentier" style="width:36px;height:36px;border-radius:50%;border:2px solid var(--accent);object-fit:cover;">
+        <span style="font-family:'Geist Mono',monospace;font-size:13px;letter-spacing:0.04em;color:var(--muted);">antoine_lecarpentier</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:26px;">
+        <a data-nav="about" href="#about" data-i18n="nav_about" style="font-family:'Geist Mono',monospace;font-size:12.5px;letter-spacing:0.02em;color:var(--faint);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--fg)">about</a>
+        <a data-nav="projects" href="#projects" data-i18n="nav_work" style="font-family:'Geist Mono',monospace;font-size:12.5px;letter-spacing:0.02em;color:var(--faint);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--fg)">work</a>
+        <a data-nav="experience" href="#experience" data-i18n="nav_exp" style="font-family:'Geist Mono',monospace;font-size:12.5px;letter-spacing:0.02em;color:var(--faint);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--fg)">experience</a>
+        <a data-nav="education" href="#education" data-i18n="nav_edu" style="font-family:'Geist Mono',monospace;font-size:12.5px;letter-spacing:0.02em;color:var(--faint);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--fg)">education</a>
+        <a data-nav="skills" href="#skills" data-i18n="nav_skills" style="font-family:'Geist Mono',monospace;font-size:12.5px;letter-spacing:0.02em;color:var(--faint);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--fg)">skills</a>
+        <a data-nav="testimonials" href="#testimonials" data-i18n="nav_testimonials" style="font-family:'Geist Mono',monospace;font-size:12.5px;letter-spacing:0.02em;color:var(--faint);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--fg)">testimonials</a>
+        <a data-nav="hobbies" href="#hobbies" data-i18n="nav_hobbies" style="font-family:'Geist Mono',monospace;font-size:12.5px;letter-spacing:0.02em;color:var(--faint);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--fg)">hobbies</a>
+        <div style="display:flex;align-items:center;border:1px solid var(--border-strong);border-radius:8px;overflow:hidden;font-family:'Geist Mono',monospace;font-size:11.5px;">
+          <button data-langbtn="en" onclick="setLang('en')" style="border:0;cursor:pointer;padding:7px 11px;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:0.04em;background:var(--card);color:var(--fg);transition:all 0.2s;">EN</button>
+          <button data-langbtn="fr" onclick="setLang('fr')" style="border:0;border-left:1px solid var(--border-strong);cursor:pointer;padding:7px 11px;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:0.04em;background:transparent;color:var(--faint);transition:all 0.2s;">FR</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top" style="position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 28px;">
+
+    <!-- HERO -->
+    <section style="padding:84px 0 88px;display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:9px;padding:6px 13px;border:1px solid var(--border);border-radius:999px;background:var(--card);margin-bottom:28px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#ef4444;box-shadow:0 0 8px #ef4444;animation:pulse 2s ease infinite;"></span>
+          <span data-i18n="hero_badge" style="font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:0.06em;color:var(--muted);text-transform:uppercase;">Not available</span>
+        </div>
+        <h1 style="margin:0 0 20px;font-size:60px;line-height:1.02;font-weight:600;letter-spacing:-0.03em;color:var(--fg);">Antoine Lecarpentier</h1>
+        <p data-i18n="hero_role" style="margin:0 0 14px;font-size:20px;line-height:1.45;font-weight:400;color:var(--fg);">IT Network Specialist</p>
+        <p data-i18n="hero_tag" style="margin:0 0 34px;font-size:16px;line-height:1.65;color:var(--muted);max-width:440px;">I build, automate and secure enterprise network infrastructures — from campus switching and datacenter fabrics to firewall hardening and Infrastructure as Code.</p>
+        <div style="display:flex;gap:12px;">
+          <a href="#contact" data-i18n="btn_contact" style="display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:9px;background:var(--accent);color:#fff;font-size:14px;font-weight:500;text-decoration:none;transition:all 0.2s;box-shadow:0 0 0 1px var(--accent),0 8px 24px -8px var(--accent-glow);" style-hover="transform:translateY(-1px)">Get in touch</a>
+          <a href="#projects" data-i18n="btn_view" style="display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:9px;background:var(--card);border:1px solid var(--border-strong);color:var(--fg);font-size:14px;font-weight:500;text-decoration:none;transition:all 0.2s;" style-hover="border-color:var(--muted)">View work</a>
+        </div>
+      </div>
+
+      <!-- TERMINAL CARD -->
+      <div style="border:1px solid var(--border-strong);border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.012));overflow:hidden;box-shadow:0 30px 80px -30px var(--accent-glow),0 0 0 1px rgba(0,0,0,0.4);">
+        <div style="display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02);">
+          <span style="width:11px;height:11px;border-radius:50%;background:#ef4444cc;"></span>
+          <span style="width:11px;height:11px;border-radius:50%;background:#eab308cc;"></span>
+          <span style="width:11px;height:11px;border-radius:50%;background:#22c55ecc;"></span>
+          <span style="margin-left:8px;font-family:'Geist Mono',monospace;font-size:11.5px;color:var(--faint);">~/portfolio — zsh</span>
+        </div>
+        <div style="padding:20px 18px;font-family:'Geist Mono',monospace;font-size:13px;line-height:1.95;">
+          <div><span style="color:var(--accent);">guest@net</span><span style="color:var(--faint);">:~$</span> <span style="color:var(--fg);">whoami</span></div>
+          <div style="color:var(--muted);">→ antoine_lecarpentier</div>
+          <div><span style="color:var(--accent);">guest@net</span><span style="color:var(--faint);">:~$</span> <span style="color:var(--fg);">cat role.txt</span></div>
+          <div style="color:var(--muted);">→ <span data-i18n="term_role">IT Network Specialist</span></div>
+          <div><span style="color:var(--accent);">guest@net</span><span style="color:var(--faint);">:~$</span> <span style="color:var(--fg);">uptime --career</span></div>
+          <div style="color:var(--muted);">→ <span data-i18n="term_uptime">6 years · 0 unpatched CVEs</span></div>
+          <div><span style="color:var(--accent);">guest@net</span><span style="color:var(--faint);">:~$</span> <span style="color:var(--fg);">status</span></div>
+          <div style="color:#22c55e;">→ <span data-i18n="term_status">[OK] systems nominal</span><span style="display:inline-block;width:8px;height:15px;background:var(--accent);margin-left:4px;transform:translateY(2px);animation:blink 1.1s step-end infinite;"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAT STRIP -->
+    <section style="display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:8px;">
+      <div style="padding:24px 22px;background:#0a0a0c;">
+        <div style="font-size:30px;font-weight:600;letter-spacing:-0.02em;color:var(--fg);">6+</div>
+        <div data-i18n="stat1" style="font-family:'Geist Mono',monospace;font-size:11.5px;color:var(--faint);margin-top:4px;letter-spacing:0.03em;">YEARS EXPERIENCE</div>
+      </div>
+      <div style="padding:24px 22px;background:#0a0a0c;">
+        <div style="font-size:30px;font-weight:600;letter-spacing:-0.02em;color:var(--fg);">2k+</div>
+        <div data-i18n="stat2" style="font-family:'Geist Mono',monospace;font-size:11.5px;color:var(--faint);margin-top:4px;letter-spacing:0.03em;">ENDPOINTS SECURED</div>
+      </div>
+      <div style="padding:24px 22px;background:#0a0a0c;">
+        <div style="font-size:30px;font-weight:600;letter-spacing:-0.02em;color:var(--fg);">99.99<span style="font-size:18px;color:var(--muted);">%</span></div>
+        <div data-i18n="stat3" style="font-family:'Geist Mono',monospace;font-size:11.5px;color:var(--faint);margin-top:4px;letter-spacing:0.03em;">SLA DELIVERED</div>
+      </div>
+      <div style="padding:24px 22px;background:#0a0a0c;">
+        <div style="font-size:30px;font-weight:600;letter-spacing:-0.02em;color:var(--fg);">50+</div>
+        <div data-i18n="stat4" style="font-family:'Geist Mono',monospace;font-size:11.5px;color:var(--faint);margin-top:4px;letter-spacing:0.03em;">SITES MANAGED</div>
+      </div>
+      <div style="padding:24px 22px;background:#0a0a0c;">
+        <div style="font-size:30px;font-weight:600;letter-spacing:-0.02em;color:var(--fg);">10k+</div>
+        <div data-i18n="stat5" style="font-family:'Geist Mono',monospace;font-size:11.5px;color:var(--faint);margin-top:4px;letter-spacing:0.03em;">SWITCH PORTS</div>
+      </div>
+      <div style="padding:24px 22px;background:#0a0a0c;">
+        <div style="font-size:30px;font-weight:600;letter-spacing:-0.02em;color:var(--fg);">5</div>
+        <div style="font-family:'Geist Mono',monospace;font-size:11.5px;color:var(--faint);margin-top:4px;letter-spacing:0.03em;">ACE:L5 · CCNP · CCNA</div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" style="scroll-margin-top:88px;padding:96px 0 40px;">
+      <div data-i18n="ab_label" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:0.1em;margin-bottom:18px;">01 / ABOUT</div>
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:56px;">
+        <div>
+          <h2 data-i18n="ab_h2" style="margin:0 0 22px;font-size:28px;font-weight:600;letter-spacing:-0.02em;line-height:1.25;color:var(--fg);">6 years turning complex network challenges into automated, scalable infrastructure.</h2>
+          <p data-i18n="ab_p1" style="margin:0 0 16px;font-size:15.5px;line-height:1.72;color:var(--muted);">From redesigning network cores with Cisco Nexus to migrating entire datacenter fabrics to Arista EVPN/BGP with Infrastructure as Code — I've spent my career building networks that scale and stay secure. I've worked across campus switching, datacenter fabrics, firewalling (Palo Alto, Fortinet, Stormshield), and NAC, managing 10,000+ switch ports across 50+ sites.</p>
+          <p data-i18n="ab_p2" style="margin:0;font-size:15.5px;line-height:1.72;color:var(--muted);">I'm passionate about automation: Python scripts generating configs from NetBox, Ansible playbooks deploying via CloudVision, CI/CD pipelines on GitLab, and real-time telemetry with gNMIc and Prometheus. When I'm not automating production infrastructure at Airbus, I'm breaking my own homelab or competing in CTF challenges.</p>
+        </div>
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:6px 22px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid var(--border);">
+            <span data-i18n="f_location" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);">LOCATION</span>
+            <span data-i18n="f_loc_val" style="font-size:14px;color:var(--fg);">On site · Toulouse</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid var(--border);">
+            <span data-i18n="f_focus" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);">FOCUS</span>
+            <span style="font-size:14px;color:var(--fg);">Switching · Firewalling</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid var(--border);">
+            <span data-i18n="f_certs" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);">CERTS</span>
+            <span style="font-size:14px;color:var(--fg);">ACE:L5, Arista DCE, Arista WAN, CCNP, CCNA</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:15px 0;">
+            <span data-i18n="f_resp" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);">RESPONSE</span>
+            <span style="display:inline-flex;align-items:center;gap:7px;font-size:14px;color:var(--fg);"><span style="width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 7px #22c55e;"></span>&lt; 24h</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" style="scroll-margin-top:88px;padding:64px 0 40px;">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;">
+        <div>
+          <div data-i18n="pr_label" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:0.1em;margin-bottom:18px;">02 / SELECTED WORK</div>
+          <h2 data-i18n="pr_h2" style="margin:0;font-size:28px;font-weight:600;letter-spacing:-0.02em;color:var(--fg);">Things I've built &amp; secured</h2>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;">
+
+        <article style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;transition:all 0.25s;" style-hover="border-color:var(--border-strong);transform:translateY(-2px)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);">001</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;font-family:'Geist Mono',monospace;font-size:11px;color:#22c55e;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></span><span data-i18n="st_deployed">DEPLOYED</span></span>
+          </div>
+          <h3 data-i18n="pr1_t" style="margin:0 0 10px;font-size:18px;font-weight:600;color:var(--fg);">Campus Backbone Renewal — Network as Code</h3>
+          <p data-i18n="pr1_d" style="margin:0 0 18px;font-size:14px;line-height:1.62;color:var(--muted);">Automated migration of all Airbus campuses from Cisco 3-tier to Arista Spine &amp; Leaf EVPN VxLAN fabric. Python + AWS Serverless generating configs from NetBox, deployed via CloudVision Portal.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Arista</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Python</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">AWS</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">NetBox</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">AVD</span>
+          </div>
+        </article>
+
+        <article style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;transition:all 0.25s;" style-hover="border-color:var(--border-strong);transform:translateY(-2px)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);">002</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;font-family:'Geist Mono',monospace;font-size:11px;color:#22c55e;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></span><span data-i18n="st_deployed">DEPLOYED</span></span>
+          </div>
+          <h3 data-i18n="pr2_t" style="margin:0 0 10px;font-size:18px;font-weight:600;color:var(--fg);">DC Fabric Migration — VxLAN HER to EVPN/BGP</h3>
+          <p data-i18n="pr2_d" style="margin:0 0 18px;font-size:14px;line-height:1.62;color:var(--muted);">Migrated the entire datacenter fabric from VxLAN Head-End Replication to a full VxLAN EVPN/BGP fabric with Infrastructure as Code using Arista AVD. Zero downtime cutover across all DC pods.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">EVPN</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">BGP</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">AVD</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Arista</span>
+          </div>
+        </article>
+
+        <article style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;transition:all 0.25s;" style-hover="border-color:var(--border-strong);transform:translateY(-2px)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);">003</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;font-family:'Geist Mono',monospace;font-size:11px;color:#22c55e;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></span><span data-i18n="st_deployed">DEPLOYED</span></span>
+          </div>
+          <h3 data-i18n="pr3_t" style="margin:0 0 10px;font-size:18px;font-weight:600;color:var(--fg);">Network Weather Map — Real-time Telemetry</h3>
+          <p data-i18n="pr3_d" style="margin:0 0 18px;font-size:14px;line-height:1.62;color:var(--muted);">Deployed a real-time network telemetry map of all datacenter infrastructure using gNMIc for streaming telemetry, Prometheus for metrics storage, and Grafana for visualization. Full visibility on link utilization, errors, and health.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">gNMIc</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Prometheus</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Grafana</span>
+          </div>
+        </article>
+
+        <article style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;transition:all 0.25s;" style-hover="border-color:var(--border-strong);transform:translateY(-2px)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);">004</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;font-family:'Geist Mono',monospace;font-size:11px;color:#22c55e;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></span><span data-i18n="st_deployed">DEPLOYED</span></span>
+          </div>
+          <h3 data-i18n="pr4_t" style="margin:0 0 10px;font-size:18px;font-weight:600;color:var(--fg);">Switch Backup Migration — TFTP to Ansible + GitLab</h3>
+          <p data-i18n="pr4_d" style="margin:0 0 18px;font-size:14px;line-height:1.62;color:var(--muted);">Replaced legacy TFTP-based switch config backups with automated Ansible EOS backup playbooks integrated into GitLab CI. Version-controlled configs with diff tracking and scheduled pipeline runs.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Ansible</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">GitLab CI</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Arista EOS</span>
+          </div>
+        </article>
+
+        <article style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;transition:all 0.25s;" style-hover="border-color:var(--border-strong);transform:translateY(-2px)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);">005</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;font-family:'Geist Mono',monospace;font-size:11px;color:#22c55e;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></span><span data-i18n="st_deployed">DEPLOYED</span></span>
+          </div>
+          <h3 data-i18n="pr5_t" style="margin:0 0 10px;font-size:18px;font-weight:600;color:var(--fg);">Automated Certificate Renewal — DC Switches</h3>
+          <p data-i18n="pr5_d" style="margin:0 0 18px;font-size:14px;line-height:1.62;color:var(--muted);">Automated the renewal of TLS/SSL certificates on all datacenter switches using Ansible playbooks orchestrated through GitLab CI pipelines. Eliminated manual certificate management and expiration risks.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Ansible</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">GitLab CI</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">PKI</span>
+          </div>
+        </article>
+
+        <article style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;transition:all 0.25s;" style-hover="border-color:var(--border-strong);transform:translateY(-2px)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);">006</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;font-family:'Geist Mono',monospace;font-size:11px;color:#22c55e;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></span><span data-i18n="st_deployed">DEPLOYED</span></span>
+          </div>
+          <h3 data-i18n="pr6_t" style="margin:0 0 10px;font-size:18px;font-weight:600;color:var(--fg);">End-of-Life Firewall Migration</h3>
+          <p data-i18n="pr6_d" style="margin:0 0 18px;font-size:14px;line-height:1.62;color:var(--muted);">Planned and executed the migration of end-of-life firewalls to next-generation platforms. Policy audit, rule cleanup, cutover planning, and validation testing with zero production impact.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Palo Alto</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Fortigate</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Stormshield</span>
+          </div>
+        </article>
+
+        <article style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;transition:all 0.25s;" style-hover="border-color:var(--border-strong);transform:translateY(-2px)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);">007</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;font-family:'Geist Mono',monospace;font-size:11px;color:#22c55e;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></span><span data-i18n="st_deployed">DEPLOYED</span></span>
+          </div>
+          <h3 data-i18n="pr7_t" style="margin:0 0 10px;font-size:18px;font-weight:600;color:var(--fg);">HQ Network Design &amp; Security Hardening</h3>
+          <p data-i18n="pr7_d" style="margin:0 0 18px;font-size:14px;line-height:1.62;color:var(--muted);">Designed and implemented the complete IT network for the Malherbe headquarters: Wi-Fi, Ethernet, VLANs, network segmentation, NAC, VoIP, and video surveillance. Hardened firewalls and deployed SentinelOne EDR across 500 endpoints.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Palo Alto</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Fortigate</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">SentinelOne</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">NAC</span>
+          </div>
+        </article>
+
+        <article style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;transition:all 0.25s;" style-hover="border-color:var(--border-strong);transform:translateY(-2px)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);">008</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;font-family:'Geist Mono',monospace;font-size:11px;color:#22c55e;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></span><span data-i18n="st_deployed">DEPLOYED</span></span>
+          </div>
+          <h3 data-i18n="pr8_t" style="margin:0 0 10px;font-size:18px;font-weight:600;color:var(--fg);">Disaster Recovery Plan &amp; Nutanix Migration</h3>
+          <p data-i18n="pr8_d" style="margin:0 0 18px;font-size:14px;line-height:1.62;color:var(--muted);">Designed and implemented a full DRP including migration from Hyper-V to Nutanix HCI. Redesigned network core with Cisco Nexus and deployed 10G Aruba switches interconnected via DAC.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Nutanix</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Cisco Nexus</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Aruba</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Hyper-V</span>
+          </div>
+        </article>
+
+        <article style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;transition:all 0.25s;" style-hover="border-color:var(--border-strong);transform:translateY(-2px)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);">009</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;font-family:'Geist Mono',monospace;font-size:11px;color:#22c55e;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></span><span data-i18n="st_deployed">DEPLOYED</span></span>
+          </div>
+          <h3 data-i18n="pr9_t" style="margin:0 0 10px;font-size:18px;font-weight:600;color:var(--fg);">ISO 27002 Audit &amp; Security Policy</h3>
+          <p data-i18n="pr9_d" style="margin:0 0 18px;font-size:14px;line-height:1.62;color:var(--muted);">Conducted a full ISO/IEC 27002 audit and authored the Information Security Policy. Led cybersecurity awareness initiatives, trained staff, and ensured GDPR compliance using Varonis.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">ISO 27002</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">GDPR</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">Varonis</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);padding:4px 9px;border:1px solid var(--border);border-radius:6px;">F5 BIG-IP</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" style="scroll-margin-top:88px;padding:64px 0 40px;">
+      <div data-i18n="ex_label" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:0.1em;margin-bottom:18px;">03 / EXPERIENCE</div>
+      <h2 data-i18n="ex_h2" style="margin:0 0 36px;font-size:28px;font-weight:600;letter-spacing:-0.02em;color:var(--fg);">Where I've worked</h2>
+      <div>
+
+        <!-- SQUAD - IT Network Specialist & Network Security Engineer -->
+        <div style="display:grid;grid-template-columns:180px 1fr;gap:32px;padding:26px 0;border-top:1px solid var(--border);">
+          <div data-i18n="ex1_date" style="font-family:'Geist Mono',monospace;font-size:12.5px;color:var(--faint);padding-top:3px;">Jun 2025 — Present</div>
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
+              <h3 data-i18n="ex1_t" style="margin:0;font-size:17px;font-weight:600;color:var(--fg);">IT Network Specialist / Network &amp; Security Engineer</h3>
+              <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);">@ SQUAD · Airbus Defence and Space Intelligence</span>
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--faint);margin-left:4px;">· Toulouse</span>
+            </div>
+            <ul data-i18n="ex1_d" style="margin:0;padding-left:18px;font-size:14px;line-height:1.65;color:var(--muted);max-width:620px;list-style:none;">
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Campus &amp; Datacenter switching: Cisco Catalyst &amp; Arista (10,000+ switch ports managed)</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Migrated DC fabric from VxLAN Head-End Replication to EVPN/BGP with IaC (AVD)</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Deployed network weather map with gNMIc / Prometheus / Grafana for real-time DC telemetry</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Migrated switch backups from legacy TFTP to Ansible EOS backup with GitLab CI</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Automated datacenter switch certificate renewal with Ansible &amp; GitLab CI</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Planned &amp; executed end-of-life firewall migration to next-gen platforms</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Network Access Control (NAC) administration &amp; policy enforcement</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>IPAM management across 200+ subnets</li>
+              <li style="padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>L2/L3 troubleshooting &amp; incident resolution on critical infrastructure</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- DEVOTEAM - NetOps & Automation Engineer -->
+        <div style="display:grid;grid-template-columns:180px 1fr;gap:32px;padding:26px 0;border-top:1px solid var(--border);">
+          <div data-i18n="ex2_date" style="font-family:'Geist Mono',monospace;font-size:12.5px;color:var(--faint);padding-top:3px;">Sep 2022 — Jun 2025</div>
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
+              <h3 data-i18n="ex2_t" style="margin:0;font-size:17px;font-weight:600;color:var(--fg);">NetOps &amp; Automation Engineer / Apprentice</h3>
+              <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);">@ Devoteam · Airbus Aircraft</span>
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--faint);margin-left:4px;">· Toulouse</span>
+            </div>
+            <ul data-i18n="ex2_d" style="margin:0;padding-left:18px;font-size:14px;line-height:1.65;color:var(--muted);max-width:620px;list-style:none;">
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Automated migration of all Airbus campuses from Cisco 3-tier to Arista Spine &amp; Leaf EVPN VxLAN fabric</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Developed Python scripts (AWS Serverless) to generate Underlay, Overlay &amp; Admin configs from NetBox</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Built API Gateway to dynamically generate cabling matrices from NetBox data</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Generated Arista configs for AVD playbooks, deployed via CloudVision Portal (CVP) using AVD &amp; CVPRAC</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Maintained NetBox plugins &amp; scripts for asset management (Tufin, Cisco ISE, IPFabric, Palo Alto)</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Created Ansible playbooks to retrieve network secrets (BGP peers, TACACS+, MGMT) from Vault</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>AWS services: Lambda, Step Functions, API Gateway, CloudWatch, Cognito, SSM, S3</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Updated critical Python scripts for rapid network shutdown in case of compromise</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Network infrastructure testing with ContainerLab</li>
+              <li style="padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>CI/CD pipelines with Jenkins &amp; GitLab · Agile environment</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- MALHERBE - Network & Systems Administrator -->
+        <div style="display:grid;grid-template-columns:180px 1fr;gap:32px;padding:26px 0;border-top:1px solid var(--border);">
+          <div data-i18n="ex3_date" style="font-family:'Geist Mono',monospace;font-size:12.5px;color:var(--faint);padding-top:3px;">Aug 2021 — Aug 2022</div>
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
+              <h3 data-i18n="ex3_t" style="margin:0;font-size:17px;font-weight:600;color:var(--fg);">Network &amp; Systems Administrator</h3>
+              <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);">@ Malherbe</span>
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--faint);margin-left:4px;">· Carpiquet, Normandie</span>
+            </div>
+            <ul data-i18n="ex3_d" style="margin:0;padding-left:18px;font-size:14px;line-height:1.65;color:var(--muted);max-width:620px;list-style:none;">
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Integrated, administered &amp; hardened firewalls: Stormshield, Fortigate, Palo Alto</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Designed complete HQ IT network: Wi-Fi, Ethernet, VLANs, segmentation, NAC, VoIP, video surveillance</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Automated SentinelOne EDR deployment across 500 endpoints</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Secured web applications with F5 BIG-IP (reverse proxy, WAF)</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Managed Active Directory infrastructure: AD, PKI, DNS, DHCP, SMB, WSUS</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Maintained Nutanix HCI &amp; DRP, administered inter-branch MPLS network</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Conducted ISO/IEC 27002 audit &amp; authored the Information Security Policy</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>GDPR compliance &amp; data protection using Varonis</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>L1–L3 support, on-call duty, security incident handling (cyberattacks, malware, EDR/SIEM alerts)</li>
+              <li style="padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Led cybersecurity awareness initiatives &amp; trained staff on best practices</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- MALHERBE - IT Systems & Network Technician -->
+        <div style="display:grid;grid-template-columns:180px 1fr;gap:32px;padding:26px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+          <div data-i18n="ex4_date" style="font-family:'Geist Mono',monospace;font-size:12.5px;color:var(--faint);padding-top:3px;">Sep 2019 — Aug 2021</div>
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
+              <h3 data-i18n="ex4_t" style="margin:0;font-size:17px;font-weight:600;color:var(--fg);">IT Systems &amp; Network Technician</h3>
+              <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);">@ Malherbe</span>
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--faint);margin-left:4px;">· Carpiquet, Normandie</span>
+            </div>
+            <ul data-i18n="ex4_d" style="margin:0;padding-left:18px;font-size:14px;line-height:1.65;color:var(--muted);max-width:620px;list-style:none;">
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Designed and implemented a DRP, including migration from Hyper-V to Nutanix HCI</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Redesigned network core with Cisco Nexus &amp; deployed 10G Aruba switches (DAC interconnects)</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>L1 support for 400 users across 12 branch offices</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Deployed ITSM tool for incident and request handling</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Implemented infrastructure monitoring with Zabbix &amp; Grafana</li>
+              <li style="margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Deployed and secured a Teleport-based bastion host</li>
+              <li style="padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>Authored detailed technical documentation and operational procedures</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" style="scroll-margin-top:88px;padding:64px 0 40px;">
+      <div data-i18n="ed_label" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:0.1em;margin-bottom:18px;">04 / EDUCATION</div>
+      <h2 data-i18n="ed_h2" style="margin:0 0 36px;font-size:28px;font-weight:600;letter-spacing:-0.02em;color:var(--fg);">Where I studied</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;">
+
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;">
+          <div data-i18n="ed1_date" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);margin-bottom:14px;">2022 — 2024</div>
+          <h3 data-i18n="ed1_t" style="margin:0 0 6px;font-size:17px;font-weight:600;color:var(--fg);">Master's Degree — Manager in Infrastructure &amp; Cybersecurity</h3>
+          <div style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:14px;">CESI</div>
+          <p data-i18n="ed1_d" style="margin:0;font-size:14px;line-height:1.62;color:var(--muted);">Bac +5 · Manager en Infrastructure et Cybersécurité des Systèmes d'Informations. Graduated.</p>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;">
+          <div data-i18n="ed2_date" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);margin-bottom:14px;">2021 — 2022</div>
+          <h3 data-i18n="ed2_t" style="margin:0 0 6px;font-size:17px;font-weight:600;color:var(--fg);">Professional Bachelor's — Network &amp; System Administration</h3>
+          <div style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:14px;">Université de Caen Normandie</div>
+          <p data-i18n="ed2_d" style="margin:0;font-size:14px;line-height:1.62;color:var(--muted);">Bac +3 · LP ASRSI (Audit et Sécurité des Réseaux et Systèmes d'Information). Graduated with honors.</p>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;">
+          <div data-i18n="ed3_date" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);margin-bottom:14px;">2019 — 2021</div>
+          <h3 data-i18n="ed3_t" style="margin:0 0 6px;font-size:17px;font-weight:600;color:var(--fg);">BTS — IT Services for Organizations (SISR)</h3>
+          <div style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:14px;">Groupe AIFCC</div>
+          <p data-i18n="ed3_d" style="margin:0;font-size:14px;line-height:1.62;color:var(--muted);">Bac +2 · BTS SIO option SISR (Solutions d'Infrastructures, Systèmes et Réseaux). Graduated with honors.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" style="scroll-margin-top:88px;padding:64px 0 40px;">
+      <div data-i18n="sk_label" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:0.1em;margin-bottom:18px;">05 / STACK</div>
+      <h2 data-i18n="sk_h2" style="margin:0 0 36px;font-size:28px;font-weight:600;letter-spacing:-0.02em;color:var(--fg);">Tools of the trade</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:22px 24px;">
+          <div data-i18n="sk_switch" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:16px;letter-spacing:0.04em;">// SWITCHING</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">Arista EOS</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">Cisco IOS/NX-OS</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">EVPN VxLAN</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">BGP / OSPF</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">VLAN / STP</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">MPLS</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">NAC / 802.1X</span>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:22px 24px;">
+          <div data-i18n="sk_fw" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:16px;letter-spacing:0.04em;">// FIREWALLING &amp; SECURITY</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">Palo Alto</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">Fortinet</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">Stormshield</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">F5 BIG-IP</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">PKI / TLS</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">Cisco ISE</span>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:22px 24px;">
+          <div data-i18n="sk_auto" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:16px;letter-spacing:0.04em;">// AUTOMATION &amp; IaC</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">Ansible / AVD</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">Python</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">GitLab CI/CD</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">Jenkins</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">NetBox</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">ContainerLab</span>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:22px 24px;">
+          <div data-i18n="sk_infra" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:16px;letter-spacing:0.04em;">// INFRA &amp; MONITORING</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">AWS</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">CloudVision</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">Prometheus</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">Grafana</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">gNMIc</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">Nutanix</span>
+            <span style="font-size:13px;color:var(--fg);padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,0.02);">Linux</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" style="scroll-margin-top:88px;padding:64px 0 40px;">
+      <div data-i18n="tm_label" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:0.1em;margin-bottom:18px;">06 / TESTIMONIALS</div>
+      <h2 data-i18n="tm_h2" style="margin:0 0 36px;font-size:28px;font-weight:600;letter-spacing:-0.02em;color:var(--fg);">What people say</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;">
+          <div style="font-size:22px;color:var(--accent);margin-bottom:12px;">"</div>
+          <p data-i18n="tm1_q" style="margin:0 0 18px;font-size:14px;line-height:1.65;color:var(--muted);font-style:italic;">Antoine is someone you can count on, always attentive to those who call on his services. His professionalism and ambitions will open doors allowing him to go very far in his career.</p>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:34px;height:34px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff;">S</div>
+            <div>
+              <div style="font-size:13px;color:var(--fg);font-weight:500;">Stéphane</div>
+              <div data-i18n="tm1_role" style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--faint);">Systems Administrator @ Inforlan</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;">
+          <div style="font-size:22px;color:var(--accent);margin-bottom:12px;">"</div>
+          <p data-i18n="tm2_q" style="margin:0 0 18px;font-size:14px;line-height:1.65;color:var(--muted);font-style:italic;">I wholeheartedly recommend Antoine for his excellent work as a systems, network and security administrator. I was impressed by his quick adaptability, technical expertise and exemplary collaboration. Antoine is a reliable and competent professional who will bring great value to any company!</p>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:34px;height:34px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff;">T</div>
+            <div>
+              <div style="font-size:13px;color:var(--fg);font-weight:500;">Tom</div>
+              <div data-i18n="tm2_role" style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--faint);">Head of IS @ Samfi Invest</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;">
+          <div style="font-size:22px;color:var(--accent);margin-bottom:12px;">"</div>
+          <p data-i18n="tm3_q" style="margin:0 0 18px;font-size:14px;line-height:1.65;color:var(--muted);font-style:italic;">I had the privilege of working with Antoine during his apprenticeship. He quickly proved the strength of his expertise through his drive and permanent curiosity. His ability to navigate complex situations — human, organizational, and technical — is remarkable! All his qualities are doubled by an endearing, cheerful, and dynamic personality. Antoine is an asset both in an IT team and in an IT project.</p>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:34px;height:34px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff;">A</div>
+            <div>
+              <div style="font-size:13px;color:var(--fg);font-weight:500;">Aloïs</div>
+              <div data-i18n="tm3_role" style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--faint);">CIO @ Centre François Baclesse</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;">
+          <div style="font-size:22px;color:var(--accent);margin-bottom:12px;">"</div>
+          <p data-i18n="tm4_q" style="margin:0 0 18px;font-size:14px;line-height:1.65;color:var(--muted);font-style:italic;">Antoine was an excellent NetOps Engineer apprentice for 2 years: curious, autonomous, and always eager to see his projects through. He not only integrated into a massive NetDevOps ecosystem, but also proposed improvements on existing projects, even taking the lead on technical choices for data synchronization. His knowledge sharing on new generative technologies also helped me improve my code quality.</p>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:34px;height:34px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff;">G</div>
+            <div>
+              <div style="font-size:13px;color:var(--fg);font-weight:500;">Gauthier</div>
+              <div data-i18n="tm4_role" style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--faint);">NetDevOps Engineer @ Devoteam</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:24px;grid-column:1 / -1;">
+          <div style="font-size:22px;color:var(--accent);margin-bottom:12px;">"</div>
+          <p data-i18n="tm5_q" style="margin:0 0 18px;font-size:14px;line-height:1.65;color:var(--muted);font-style:italic;">I always admired your drive to learn and your positive approach to whatever challenge came your way. You consistently demonstrated a great mindset and professionalism during the last 2+ years. Your decision to seek out a new environment to broaden your experience was a testament to that ambition. I'm confident you'll land a fantastic new role soon — any team would be lucky to have you.</p>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:34px;height:34px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff;">R</div>
+            <div>
+              <div style="font-size:13px;color:var(--fg);font-weight:500;">Raúl</div>
+              <div data-i18n="tm5_role" style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--faint);">PO Network Automation @ Airbus</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- HOBBIES -->
+    <section id="hobbies" style="scroll-margin-top:88px;padding:64px 0 40px;">
+      <div data-i18n="hb_label" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:0.1em;margin-bottom:18px;">07 / HOBBIES</div>
+      <h2 data-i18n="hb_h2" style="margin:0 0 36px;font-size:28px;font-weight:600;letter-spacing:-0.02em;color:var(--fg);">Off the clock</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;">
+
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:22px 24px;transition:all 0.25s;" style-hover="border-color:var(--border-strong);transform:translateY(-2px)">
+          <div style="font-size:28px;margin-bottom:12px;">🏠</div>
+          <h3 data-i18n="hb1_t" style="margin:0 0 8px;font-size:17px;font-weight:600;color:var(--fg);">Homelab</h3>
+          <p data-i18n="hb1_d" style="margin:0;font-size:14px;line-height:1.62;color:var(--muted);">Breaking and rebuilding my own infrastructure — proxmox clusters, self-hosted services, and network experiments.</p>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:22px 24px;transition:all 0.25s;" style-hover="border-color:var(--border-strong);transform:translateY(-2px)">
+          <div style="font-size:28px;margin-bottom:12px;">🏁</div>
+          <h3 data-i18n="hb2_t" style="margin:0 0 8px;font-size:17px;font-weight:600;color:var(--fg);">CTF Competitions</h3>
+          <p data-i18n="hb2_d" style="margin:0;font-size:14px;line-height:1.62;color:var(--muted);">Capture the flag events to stay sharp on offensive security — reverse engineering, crypto challenges, and exploit development.</p>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:14px;background:var(--card);padding:22px 24px;transition:all 0.25s;" style-hover="border-color:var(--border-strong);transform:translateY(-2px)">
+          <div style="font-size:28px;margin-bottom:12px;">🎲</div>
+          <h3 data-i18n="hb3_t" style="margin:0 0 8px;font-size:17px;font-weight:600;color:var(--fg);">Board Games</h3>
+          <p data-i18n="hb3_d" style="margin:0 0 14px;font-size:14px;line-height:1.62;color:var(--muted);">Strategy and social board games — big fan of Skull King. I even built a score calculator for it.</p>
+          <a href="https://sk.bumpsecurity.fr" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);text-decoration:none;transition:opacity 0.2s;" style-hover="opacity:0.8">sk.bumpsecurity.fr →</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" style="scroll-margin-top:88px;padding:80px 0 96px;">
+      <div style="border:1px solid var(--border-strong);border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01));padding:56px 44px;text-align:center;position:relative;overflow:hidden;box-shadow:0 40px 100px -50px var(--accent-glow);">
+        <div data-i18n="ct_label" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:0.1em;margin-bottom:18px;">08 / CONTACT</div>
+        <h2 data-i18n="ct_h2" style="margin:0 0 16px;font-size:38px;font-weight:600;letter-spacing:-0.025em;color:var(--fg);">Let's secure something.</h2>
+        <p data-i18n="ct_p" style="margin:0 auto 32px;font-size:16px;line-height:1.6;color:var(--muted);max-width:440px;">Open to senior network &amp; security roles, consulting, and the occasional interesting incident. Usually reply within a day.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="/cdn-cgi/l/email-protection#1a727f7676755a7b767f62777f68797f68347e7f6c" style="display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:10px;background:var(--accent);color:#fff;font-size:15px;font-weight:500;text-decoration:none;transition:transform 0.2s;box-shadow:0 8px 28px -10px var(--accent-glow);" style-hover="transform:translateY(-1px)"><span class="__cf_email__" data-cfemail="81e9e4ededeec1e0ede4f9ece4f3e2e4f3afe5e4f7">[email&#160;protected]</span></a>
+          <a href="https://www.linkedin.com/in/antoine-lecarpentier-64b292183" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:10px;background:var(--card);border:1px solid var(--border-strong);color:var(--fg);font-size:15px;font-weight:500;text-decoration:none;transition:all 0.2s;" style-hover="border-color:var(--muted)">LinkedIn</a>
+          <a href="https://github.com/anntoiiinee" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:10px;background:var(--card);border:1px solid var(--border-strong);color:var(--fg);font-size:15px;font-weight:500;text-decoration:none;transition:all 0.2s;" style-hover="border-color:var(--muted)">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer style="position:relative;z-index:1;border-top:1px solid var(--border);">
+    <div style="max-width:1080px;margin:0 auto;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <span data-i18n="ft_copy" style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);">© 2026 Antoine Lecarpentier - Build with ❤️ and with Claude</span>
+      <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint);display:inline-flex;align-items:center;gap:7px;"><span style="width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 7px #22c55e;animation:pulse 2s ease infinite;"></span><span data-i18n="ft_status">all systems operational</span></span>
+    </div>
+  </footer>
+
+</div>
+<script>
+(function() {
+  var FR = {
+    nav_about: "à propos", nav_work: "projets", nav_exp: "expérience", nav_edu: "formation", nav_skills: "compétences",
+    nav_testimonials: "avis", nav_hobbies: "loisirs",
+    hero_badge: "Non disponible",
+    hero_role: "Spécialiste Réseau IT",
+    hero_tag: "Je construis, automatise et sécurise les infrastructures réseau d'entreprise — du switching campus aux fabrics datacenter, en passant par le durcissement des pare-feu et l'Infrastructure as Code.",
+    btn_contact: "Me contacter", btn_view: "Voir les projets",
+    term_role: "Spécialiste Réseau IT",
+    term_uptime: "6 ans · 0 CVE non corrigée",
+    term_status: "[OK] systèmes nominaux",
+    stat1: "ANS D'EXPÉRIENCE", stat2: "POSTES SÉCURISÉS", stat3: "SLA GARANTI", stat4: "SITES GÉRÉS", stat5: "PORTS SWITCH",
+    ab_label: "01 / À PROPOS",
+    ab_h2: "6 ans à transformer des défis réseau complexes en infrastructures automatisées et scalables.",
+    ab_p1: "De la refonte de cœurs réseau avec Cisco Nexus à la migration de fabrics datacenter entières vers Arista EVPN/BGP en Infrastructure as Code — j'ai passé ma carrière à construire des réseaux qui passent à l'échelle et restent sécurisés. J'ai travaillé sur le switching campus, les fabrics datacenter, le firewalling (Palo Alto, Fortinet, Stormshield) et le NAC, en gérant 10 000+ ports switch sur 50+ sites.",
+    ab_p2: "Je suis passionné par l'automatisation : scripts Python générant les configs depuis NetBox, playbooks Ansible déployant via CloudVision, pipelines CI/CD sur GitLab, et télémétrie temps réel avec gNMIc et Prometheus. Quand je n'automatise pas l'infrastructure de production chez Airbus, je casse mon propre homelab ou je participe à des compétitions CTF.",
+    f_location: "LOCALISATION", f_loc_val: "Sur site · Toulouse", f_focus: "DOMAINE", f_certs: "CERTIFS", f_resp: "RÉPONSE",
+    pr_label: "02 / PROJETS SÉLECTIONNÉS", pr_h2: "Ce que j'ai construit & sécurisé",
+    st_deployed: "DÉPLOYÉ", st_maintained: "MAINTENU",
+    pr1_t: "Renouvellement Backbone Campus — Network as Code",
+    pr1_d: "Automatisation de la migration de tous les campus Airbus d'une architecture Cisco 3-tier vers une fabric Arista Spine & Leaf EVPN VxLAN. Python + AWS Serverless générant les configs depuis NetBox, déployées via CloudVision Portal.",
+    pr2_t: "Migration Fabric DC — VxLAN HER vers EVPN/BGP",
+    pr2_d: "Migration de l'ensemble de la fabric datacenter de VxLAN Head-End Replication vers une fabric VxLAN EVPN/BGP complète avec Infrastructure as Code via Arista AVD. Basculement sans interruption sur tous les pods DC.",
+    pr3_t: "Network Weather Map — Télémétrie temps réel",
+    pr3_d: "Déploiement d'une carte de télémétrie réseau temps réel de toute l'infrastructure datacenter avec gNMIc pour le streaming, Prometheus pour le stockage et Grafana pour la visualisation.",
+    pr4_t: "Migration Backup Switches — TFTP vers Ansible + GitLab",
+    pr4_d: "Remplacement des sauvegardes TFTP legacy par des playbooks Ansible EOS intégrés dans GitLab CI. Configs versionnées avec suivi des diffs et pipelines planifiés.",
+    pr5_t: "Renouvellement automatisé de certificats — Switches DC",
+    pr5_d: "Automatisation du renouvellement des certificats TLS/SSL sur tous les switches datacenter via des playbooks Ansible orchestrés par GitLab CI. Fin de la gestion manuelle et des risques d'expiration.",
+    pr6_t: "Migration de pare-feu en fin de vie",
+    pr6_d: "Planification et exécution de la migration de pare-feu en fin de vie vers des plateformes nouvelle génération. Audit de politiques, nettoyage de règles, planification de bascule et tests de validation sans impact production.",
+    pr7_t: "Conception réseau siège & durcissement sécurité",
+    pr7_d: "Conception et mise en œuvre du réseau IT complet du siège Malherbe : Wi-Fi, Ethernet, VLANs, segmentation, NAC, VoIP et vidéosurveillance. Durcissement des pare-feu et déploiement de SentinelOne EDR sur 500 postes.",
+    pr8_t: "Plan de Reprise d'Activité & Migration Nutanix",
+    pr8_d: "Conception et mise en œuvre d'un PRA complet incluant la migration de Hyper-V vers Nutanix HCI. Refonte du cœur réseau avec Cisco Nexus et déploiement de switches Aruba 10G interconnectés en DAC.",
+    pr9_t: "Audit ISO 27002 & Politique de Sécurité",
+    pr9_d: "Réalisation d'un audit ISO/IEC 27002 complet et rédaction de la PSSI. Animation d'actions de sensibilisation cybersécurité, formation du personnel et conformité RGPD avec Varonis.",
+    ex_label: "03 / EXPÉRIENCE", ex_h2: "Mon parcours",
+    ex1_date: "Juin 2025 — Présent", ex1_t: "Spécialiste Réseau IT / Ingénieur Réseau & Sécurité",
+    ex1_d: "<li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Switching Campus & Datacenter : Cisco Catalyst & Arista (10 000+ ports switch gérés)</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Migration de la fabric DC de VxLAN Head-End Replication vers EVPN/BGP avec IaC (AVD)</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Déploiement d'une network weather map avec gNMIc / Prometheus / Grafana pour la télémétrie DC temps réel</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Migration des sauvegardes switch de TFTP legacy vers Ansible EOS backup avec GitLab CI</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Automatisation du renouvellement des certificats switches DC avec Ansible & GitLab CI</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Planification & exécution de la migration de pare-feu en fin de vie vers des plateformes nouvelle génération</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Administration du contrôle d'accès réseau (NAC) & application des politiques</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Gestion IPAM sur 200+ sous-réseaux</li><li style=\"padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Troubleshooting L2/L3 & résolution d'incidents sur infrastructure critique</li>",
+    ex2_date: "Sep 2022 — Juin 2025", ex2_t: "Ingénieur NetOps & Automatisation / Alternant",
+    ex2_d: "<li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Automatisation de la migration de tous les campus Airbus d'une architecture Cisco 3-tier vers une fabric Arista Spine & Leaf EVPN VxLAN</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Développement de scripts Python (AWS Serverless) pour générer les configs Underlay, Overlay & Admin depuis NetBox</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Construction d'une API Gateway pour générer dynamiquement les matrices de câblage depuis NetBox</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Génération de configs Arista pour les playbooks AVD, déployées via CloudVision Portal (CVP) avec AVD & CVPRAC</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Maintenance de plugins NetBox & scripts pour la gestion d'assets (Tufin, Cisco ISE, IPFabric, Palo Alto)</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Création de playbooks Ansible pour récupérer les secrets réseau (BGP peers, TACACS+, MGMT) depuis un Vault</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Services AWS : Lambda, Step Functions, API Gateway, CloudWatch, Cognito, SSM, S3</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Mise à jour de scripts Python critiques pour l'arrêt rapide de tous les équipements réseau en cas de compromission</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Tests d'infrastructure réseau avec ContainerLab</li><li style=\"padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Pipelines CI/CD avec Jenkins & GitLab · Environnement Agile</li>",
+    ex3_date: "Août 2021 — Août 2022", ex3_t: "Administrateur Réseau & Systèmes",
+    ex3_d: "<li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Intégration, administration & durcissement de pare-feu : Stormshield, Fortigate, Palo Alto</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Conception du réseau IT complet du siège : Wi-Fi, Ethernet, VLANs, segmentation, NAC, VoIP, vidéosurveillance</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Déploiement automatisé de SentinelOne EDR sur 500 postes</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Sécurisation des applications web avec F5 BIG-IP (reverse proxy, WAF)</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Gestion de l'infrastructure Active Directory : AD, PKI, DNS, DHCP, SMB, WSUS</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Maintenance de l'infrastructure HCI Nutanix & PRA, administration du réseau MPLS inter-sites</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Réalisation d'un audit ISO/IEC 27002 & rédaction de la PSSI</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Conformité RGPD & protection des données avec Varonis</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Support N1–N3, astreintes, gestion d'incidents de sécurité (cyberattaques, malwares, alertes EDR/SIEM)</li><li style=\"padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Animation d'actions de sensibilisation cybersécurité & formation du personnel</li>",
+    ex4_date: "Sep 2019 — Août 2021", ex4_t: "Technicien Systèmes & Réseaux",
+    ex4_d: "<li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Conception et mise en œuvre d'un PRA, incluant la migration de Hyper-V vers Nutanix HCI</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Refonte du cœur réseau avec Cisco Nexus & déploiement de switches Aruba 10G (interconnexions DAC)</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Support N1 pour 400 utilisateurs sur 12 sites</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Déploiement d'un outil ITSM pour la gestion des incidents et demandes</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Mise en place de la supervision d'infrastructure avec Zabbix & Grafana</li><li style=\"margin-bottom:6px;padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Déploiement et sécurisation d'un bastion Teleport</li><li style=\"padding-left:14px;position:relative;\"><span style=\"position:absolute;left:0;color:var(--accent);\">▸</span>Rédaction de documentation technique détaillée et procédures opérationnelles</li>",
+    ed_label: "04 / FORMATION", ed_h2: "Mes études",
+    ed1_date: "2022 — 2024", ed1_t: "Master — Manager en Infrastructure & Cybersécurité",
+    ed1_d: "Bac +5 · Manager en Infrastructure et Cybersécurité des Systèmes d'Informations. Admis.",
+    ed2_date: "2021 — 2022", ed2_t: "Licence Pro — Administration Systèmes & Réseaux",
+    ed2_d: "Bac +3 · LP ASRSI (Audit et Sécurité des Réseaux et Systèmes d'Information). Admis avec mention.",
+    ed3_date: "2019 — 2021", ed3_t: "BTS — Services Informatiques aux Organisations (SISR)",
+    ed3_d: "Bac +2 · BTS SIO option SISR (Solutions d'Infrastructures, Systèmes et Réseaux). Admis avec mention.",
+    sk_label: "05 / OUTILS", sk_h2: "Les outils du métier",
+    sk_switch: "// SWITCHING", sk_fw: "// FIREWALLING & SÉCURITÉ", sk_auto: "// AUTOMATISATION & IaC", sk_infra: "// INFRA & SUPERVISION",
+    tm_label: "06 / TÉMOIGNAGES", tm_h2: "Ce qu'on dit de moi",
+    tm1_q: "Antoine fait partie des gens sur qui on peut compter, toujours à l'écoute des gens qui font appel à ses services. Son professionnalisme et ses ambitions lui ouvriront des portes lui permettant d'aller très loin dans sa carrière.",
+    tm1_role: "Administrateur Systèmes @ Inforlan",
+    tm2_q: "C'est sans hésitation que je recommande Antoine pour son excellent travail en tant qu'administrateur systèmes, réseaux et sécurité. J'ai été impressionné par sa rapidité d'adaptation, son expertise technique et sa collaboration exemplaire. Antoine est un professionnel fiable et compétent, je suis convaincu qu'il apportera une grande valeur à toute entreprise !",
+    tm2_role: "RSI @ Samfi Invest",
+    tm3_q: "J'ai eu le privilège de travailler avec Antoine lors de sa période d'alternance. Il a rapidement prouvé la solidité de son expertise, grâce à son envie et sa curiosité permanente. Sa capacité à naviguer à travers des situations complexes d'un point de vue humain, organisationnel et technique est remarquable ! Toutes ses qualités sont doublées d'une personnalité attachante, enjouée et dynamique. Antoine est un atout tant dans une équipe IT que dans un projet IT.",
+    tm3_role: "DSI @ Centre François Baclesse",
+    tm4_q: "Antoine a été un excellent apprenti Ingénieur NetOps pendant 2 ans : curieux, autonome et toujours désireux de mener à bien ses projets. Il a su non seulement s'intégrer dans un écosystème NetDevOps massif, mais encore proposer des évolutions sur des projets existants, quitte même à prendre le lead sur des choix techniques de synchronisation des données. Son partage de connaissance sur les nouvelles technologies génératives m'ont aussi permis d'améliorer ma qualité de code.",
+    tm4_role: "Ingénieur NetDevOps @ Devoteam",
+    tm5_q: "J'ai toujours admiré ta volonté d'apprendre et ton approche positive face à chaque défi. Tu as constamment fait preuve d'un excellent état d'esprit et d'un grand professionnalisme pendant plus de 2 ans. Ta décision de chercher un nouvel environnement pour élargir ton expérience témoigne de cette ambition. Je suis convaincu que tu trouveras un poste fantastique — toute équipe aurait de la chance de t'avoir.",
+    tm5_role: "PO Automatisation Réseau @ Airbus",
+    hb_label: "07 / LOISIRS", hb_h2: "En dehors du travail",
+    hb1_t: "Homelab", hb1_d: "Casser et reconstruire ma propre infrastructure — clusters Proxmox, services auto-hébergés et expériences réseau.",
+    hb2_t: "Compétitions CTF", hb2_d: "Capture the flag pour rester affûté en sécurité offensive — rétro-ingénierie, challenges crypto et développement d'exploits.",
+    hb3_t: "Jeux de société", hb3_d: "Jeux de stratégie et jeux de société — grand fan de Skull King. J'ai même créé un calculateur de score.",
+    ct_label: "08 / CONTACT", ct_h2: "Sécurisons quelque chose.",
+    ct_p: "Ouvert aux postes seniors en réseau & sécurité, au conseil, et à l'incident intéressant occasionnel. Je réponds généralement sous 24 h.",
+    ft_copy: "© 2026 Antoine Lecarpentier - Build with ❤️ and with Claude",
+    ft_status: "tous les systèmes opérationnels"
+  };
+  var enCache = {};
+
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    enCache[el.getAttribute('data-i18n')] = el.innerHTML;
+  });
+
+  window.setLang = function(lang) {
+    try { localStorage.setItem('portfolio_lang', lang); } catch(e) {}
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n');
+      el.innerHTML = (lang === 'fr' && FR[k] != null) ? FR[k] : enCache[k];
+    });
+    document.querySelectorAll('[data-langbtn]').forEach(function(b) {
+      var active = b.getAttribute('data-langbtn') === lang;
+      b.style.color = active ? 'var(--fg)' : 'var(--faint)';
+      b.style.background = active ? 'var(--card)' : 'transparent';
+    });
+  };
+
+  var saved = 'en';
+  try { saved = localStorage.getItem('portfolio_lang') || 'en'; } catch(e) {}
+  if (saved === 'fr') window.setLang('fr');
+})();
+</script>
+</body>
+</html>
